@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DEVIL DOLL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --panel:#111827;
+  --card:#1f2937;
+  --red:#dc2626;
+  --yellow:#facc15;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,system-ui}
+
+body{
+  background:linear-gradient(135deg,#020617,#0b1220);
+  color:var(--text);
+  height:100vh;
+}
+
+.app{display:flex;flex-direction:column;height:100vh}
+
+/* APP TITLE */
+.app-title{
+  padding:14px 24px;
+  background:var(--panel);
+  font-size:22px;
+  font-weight:700;
+  color:var(--yellow);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* TOP NAV */
+.top-nav{
+  display:flex;
+  gap:40px;
+  padding:14px 24px;
+  background:var(--panel);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.top-nav span{
+  cursor:pointer;
+  color:var(--muted);
+  padding-bottom:6px;
+}
+.top-nav .active{
+  color:var(--yellow);
+  font-weight:600;
+  border-bottom:3px solid var(--yellow);
+}
+
+/* SCREENS */
+.screen{flex:1;display:none}
+.screen.active{display:flex}
+
+/* MAIN */
+.main{flex:1;display:flex}
+
+/* SIDEBAR */
+.sidebar{
+  width:320px;
+  background:var(--panel);
+  border-right:1px solid rgba(255,255,255,.08);
+}
+
+.contact{
+  display:flex;
+  gap:12px;
+  padding:14px 18px;
+  cursor:pointer;
+}
+.contact.active{background:rgba(255,255,255,.05)}
+
+.avatar{
+  width:44px;height:44px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--red);
+}
+
+/* CHAT */
+.chat{flex:1;display:flex;flex-direction:column}
+.chat-header{
+  display:flex;
+  gap:12px;
+  padding:16px;
+  background:var(--card);
+}
+.messages{
+  flex:1;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.msg{
+  max-width:65%;
+  padding:12px 16px;
+  border-radius:18px;
+  font-size:14px;
+  line-height:1.5;
+}
+.left{background:#1f2937;align-self:flex-start}
+.right{
+  background:linear-gradient(135deg,var(--red),#991b1b);
+  color:#fff;
+  align-self:flex-end;
+}
+
+/* INPUT AREA */
+.input{
+  padding:16px;
+  background:var(--card);
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.input input{
+  flex:1;
+  padding:12px 16px;
+  border-radius:30px;
+  border:none;
+  background:#020617;
+  color:var(--text);
+}
+.send-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--red),#991b1b);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  cursor:pointer;
+  user-select:none;
+}
+.send-btn:hover{
+  opacity:0.9;
+}
+
+/* GROUP LIST */
+.group-list{
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.group-item{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  background:var(--card);
+  padding:14px;
+  border-radius:14px;
+}
+.group-item img{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  object-fit:cover;
+}
+.group-item span{
+  font-size:16px;
+}
+
+/* CENTER */
+.center{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="app-title">DEVIL DOLL</div>
+
+  <div class="top-nav">
+    <span class="active" onclick="showTab('chatTab',this)">CHAT</span>
+    <span onclick="showTab('groupTab',this)">GROUP</span>
+    <span onclick="showTab('statusTab',this)">STATUS</span>
+    <span onclick="showTab('callsTab',this)">CALLS</span>
+  </div>
+
+  <!-- CHAT TAB -->
+  <div id="chatTab" class="screen active">
+    <div class="main">
+
+      <div class="sidebar">
+        <div class="contact active" onclick="openChat('theri',this)">
+          <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuqbCHfkbbKMBWGwfrhsYUtVSWlb4S5oK2suO7YKGCPA&s">
+          <div>Theri Baby</div>
+        </div>
+
+        <div class="contact" onclick="openChat('hinaan',this)">
+          <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWagGZ7FM8A5LlFtGScAR79Wdaf7zhdEvqifxb2G6h&s">
+          <div>Hi Naan</div>
+        </div>
+      </div>
+
+      <div class="chat">
+        <div class="chat-header">
+          <img class="avatar" id="chatAvatar"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuqbCHfkbbKMBWGwfrhsYUtVSWlb4S5oK2suO7YKGCPA&s">
+          <strong id="chatName">Theri Baby</strong>
+        </div>
+
+        <div class="messages" id="chatMessages">
+          <div class="msg right">HEY, IT'S 'VIJAY 59' DUDE...!</div>
+          <div class="msg left">THAT GREAT DUDE, PADAM PERU ENNA DA.</div>
+          <div class="msg right">IT'S THERI DA..!</div>
+          <div class="msg left">"I AM WAITING"</div>
+        </div>
+
+        <!-- INPUT + SEND -->
+        <div class="input">
+          <input placeholder="Type a message...">
+          <div class="send-btn">➤</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP TAB -->
+  <div id="groupTab" class="screen">
+    <div class="group-list">
+      <div class="group-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMmfIpdYSh1ZVcBqSMUOQofgYwGK2rfQwE5A&s">
+        <span>THALAPATHY FANS</span>
+      </div>
+      <div class="group-item">
+        <img src="https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/6145/1747850756145-i">
+        <span>HEART BEAT</span>
+      </div>
+      <div class="group-item">
+        <img src="https://img1.hotstarext.com/image/upload/f_auto/sources/r1/cms/prod/3171/1737466373171-i">
+        <span>OFFICE</span>
+      </div>
+      <div class="group-item">
+        <img src="naam.png">
+        <span>NAAM</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="statusTab" class="screen">
+    <div class="center">📸 STORIES SCREEN</div>
+  </div>
+
+  <div id="callsTab" class="screen">
+    <div class="center">📞 CALLS SCREEN</div>
+  </div>
+
+</div>
+
+<script>
+function showTab(tabId,el){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  document.querySelectorAll('.top-nav span').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openChat(type,el){
+  document.querySelectorAll('.contact').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+
+  const name=document.getElementById('chatName');
+  const avatar=document.getElementById('chatAvatar');
+  const msg=document.getElementById('chatMessages');
+
+  if(type==='theri'){
+    name.innerText='Theri Baby';
+    avatar.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuqbCHfkbbKMBWGwfrhsYUtVSWlb4S5oK2suO7YKGCPA&s';
+    msg.innerHTML=`
+      <div class="msg right">HEY, IT'S 'VIJAY 59' DUDE...!</div>
+      <div class="msg left">THAT GREAT DUDE, PADAM PERU ENNA DA.</div>
+      <div class="msg right">IT'S THERI DA..!</div>
+      <div class="msg left">"I AM WAITING"</div>
+    `;
+  }
+
+  if(type==='hinaan'){
+    name.innerText='Hi Naan';
+    avatar.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWagGZ7FM8A5LlFtGScAR79Wdaf7zhdEvqifxb2G6h&s';
+    msg.innerHTML=`
+      <div class="msg left">
+        Avan sirikkumbodhu aval santhoshama irundhaa podhum,
+        Aval azhudhaal avan manasu heavy aagudhu.
+      </div>
+      <div class="msg left">
+        Idha explain panna mudiyadhu…
+        Idhu thaan love nu solluvaanga.
+      </div>
+    `;
+  }
+}
+</script>
+
+</body>
+</html>
